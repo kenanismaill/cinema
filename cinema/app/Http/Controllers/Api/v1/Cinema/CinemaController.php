@@ -9,9 +9,11 @@ use Illuminate\Http\Request;
 class CinemaController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $cinemas = Cinema::with('city')->paginate($request->has('per_page') ? $request->get('per_page') : 20);
+
+        return response()->json($cinemas);
     }
 
 

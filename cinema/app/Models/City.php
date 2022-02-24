@@ -14,4 +14,9 @@ class City extends Model
         'name',
         'description',
     ];
+
+    public function cinemas()
+    {
+        return $this->hasMany(Cinema::class);
+    }
 }
