@@ -1,13 +1,12 @@
 <?php
 
-use App\Models\City;
+use App\Models\Cinema;
 use App\Models\Film;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -15,11 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cinemas', function (Blueprint $table) {
+        Schema::create('cinema_film', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->foreignIdFor(City::class)->constrained('cities')
+            $table->foreignIdFor(Film::class)->constrained('films')
+                ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Cinema::class)->constrained('cinemas')
                 ->cascadeOnUpdate()->cascadeOnDelete();
 
             $table->timestamps();
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cinemas');
+        Schema::dropIfExists('cinema_film');
     }
 };

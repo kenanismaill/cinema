@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Cinema;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Film;
 use Illuminate\Database\Seeder;
 
 class CinemaSeeder extends Seeder
@@ -15,6 +15,10 @@ class CinemaSeeder extends Seeder
      */
     public function run()
     {
-        Cinema::factory()->count(100)->create();
+        $cinemas = Cinema::factory()->count(10)->create();
+        foreach ($cinemas as $cinema) {
+            $films = Film::query()->inRandomOrder()->take(3)->pluck('id');
+            $cinema->films()->sync($films);
+        }
     }
 }

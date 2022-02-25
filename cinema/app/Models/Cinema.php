@@ -10,15 +10,19 @@ class Cinema extends Model
     use HasFactory;
 
     protected $fillable = [
-      'name',
-      'description',
-      'city_id',
-      'size',
+        'name',
+        'description',
+        'city_id',
     ];
 
 
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function films()
+    {
+        return $this->belongsToMany(Film::class);
     }
 }

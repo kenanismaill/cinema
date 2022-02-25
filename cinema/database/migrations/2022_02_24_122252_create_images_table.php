@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\City;
-use App\Models\Film;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cinemas', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->foreignIdFor(City::class)->constrained('cities')
-                ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->morphs('imageable');
+            $table->string('name')->nullable();
+            $table->string('url');
 
             $table->timestamps();
         });
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cinemas');
+        Schema::dropIfExists('images');
     }
 };
