@@ -25,7 +25,6 @@ class FilmController extends Controller
         return FilmResource::collection($films);
     }
 
-
     public function store(StoreFilmRequest $request)
     {
         $data = $request->only(['name', 'description', 'start_date', 'end_date', 'type', 'size']);
